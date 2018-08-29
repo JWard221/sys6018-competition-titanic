@@ -41,7 +41,7 @@ preds
 table(preds,p1.valid$Survived)
 
 #dropping SibSp, Parch, Fare, and Embarked due to lack of significance 
-p1.lg2 <- glm(Survived~. -SibSp -Parch -Embarked -Fare, data=p1.train, family = "binomial")
+p1.lg2 <- glm(Survived~. -Parch -Embarked -Fare, data=p1.train, family = "binomial")
 summary(p1.lg2)
 
 probs<-as.vector(predict(p1.lg2, type="response"))
@@ -58,4 +58,4 @@ preds[probs>0.5] <- 1
 #writting out
 final <- data.frame(predID,preds)
 names(final) <- c("PassengerId","Survived")
-write.csv(final, file = "titanic-predictions.csv")
+write.csv(final, file = "titanic-predictions.csv", row.names=FALSE)
